@@ -4,8 +4,8 @@ BUILD_DIR = build
 TEST_DIR = tests
 BIN_DIR = bin
 LIB = lib
-INC = -I include
-CXXFLAGS=-g -Wall -std=c++14
+INC = -I include -I third_party/spdlog-1.x/include/
+CXXFLAGS= -g -Wall -std=c++14
 LDFLAGS= -shared -fPIC
 
 SRCS = $(wildcard $(SRC_DIR)/*.cpp)
@@ -23,9 +23,9 @@ $(TARGETS): $(BIN_DIR)/%: $(OBJS)
 	$(CXX) $(CXXFLAGS) $(TEST_DIR)/$*.cpp -L$(LIB) -lBtree $(INC) $^ -o $@
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
-	mkdir build/
-	mkdir lib/
-	mkdir bin/
+	mkdir -p build/
+	mkdir -p lib/
+	mkdir -p bin/
 	$(CXX) $(INC) $(CXXFLAGS) -c -o $@ $<
 
 clean:

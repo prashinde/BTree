@@ -1,4 +1,5 @@
 #include "btreeNode.h"
+#include "logger.h"
 
 namespace BTreeImpl {
 
@@ -17,4 +18,12 @@ void BTreeNode::insertKeyEntry(const KeyEntry& keyEntry)
 {
     m_keys.insert(keyEntry);
 }
+
+void BTreeNode::printElements()
+{
+    for (auto key : m_keys) {
+        BTreeLogger::Logger::getLogger()->info("key:{}", key.m_key);    
+    }
+}
+
 };

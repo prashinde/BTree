@@ -43,6 +43,8 @@ public:
     int findKey(uint64_t key, KeyEntry& keyOut); // returns a reference to the key
 
     void insertKeyEntry(const KeyEntry& keyEntry); // inserts a key entry in sorted order
+
+    void printElements();
 };
 
 }; // BTreeImpl
