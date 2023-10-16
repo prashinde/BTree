@@ -26,4 +26,40 @@ void BTreeNode::printElements()
     }
 }
 
+std::shared_ptr<BTreeNode> BTreeNode::splitNode(uint32_t percentile)
+{
+    // calculate how many elements to move
+    std::shared_ptr<BTreeNode> newNode = std::make_shared<BTreeNode>();
+
+    uint32_t totalToMove = m_keys.size()/2;
+    uint32_t numMoved = 0;
+
+    // new node is empty
+    if (totalToMove <= 0) {
+        return newNode;
+    }
+    // Move last elements and while moving remove then from set
+    auto rit = m_keys.rbegin();
+    while (rit != m_keys.rend()) {
+        // move elements to new node
+        newNode->insertKeyEntry(*rit);
+        numMoved++;
+
+        // remove moved element from iterator
+        rit = decltype(rit)(m_keys.erase(std::next(rit).base()));
+        // do not touch rit again
+        if (numMoved == totalToMove) {
+            break;
+        }
+    }
+
+    return newNode;
+}
+
+KeyEntry BTreeNode::insertValue(uint64_t value)
+{
+    if (m_isLeafNode) {
+        if (m_numKeys < g_btreeDegree
+    }
+}
 };

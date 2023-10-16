@@ -2,6 +2,7 @@
 #include <random>
 
 #include "btreeNode.h"
+#include "logger.h"
 
 using namespace BTreeImpl;
 
@@ -18,6 +19,14 @@ int main()
         node.insertKeyEntry(KeyEntry(distr(gen)));
     }
 
+    BTreeLogger::Logger::getLogger()->info("Printing before split");
     node.printElements();
+
+    auto newNode = node.splitNode();
+
+    BTreeLogger::Logger::getLogger()->info("Printing old node after split");
+    node.printElements();
+    BTreeLogger::Logger::getLogger()->info("Printing new node after split");
+    newNode->printElements();
     return 0;
 }

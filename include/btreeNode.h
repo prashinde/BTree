@@ -38,13 +38,25 @@ class BTreeNode {
 private:
     std::set<KeyEntry> m_keys; // series of keys
     uint64_t m_numKeys; // number of keys
+    bool m_isLeafNode;
 
 public:
+    BTreeNode() : m_numKeys(0), m_isLeafNode(true)
+    { }
+
     int findKey(uint64_t key, KeyEntry& keyOut); // returns a reference to the key
 
     void insertKeyEntry(const KeyEntry& keyEntry); // inserts a key entry in sorted order
 
-    void printElements();
+    void printElements(); // print elements
+
+    // Split the current node at the given interval
+    // Returns the new node
+    std::shared_ptr<BTreeNode> splitNode(uint32_t percentile = 50);
+
+    // inserts a value to the Btree
+    // Returns a new key entry if split otherwise null
+    KeyEntry insertValue(uint64_t value);
 };
 
 }; // BTreeImpl
